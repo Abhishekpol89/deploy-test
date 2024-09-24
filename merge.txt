@@ -1,2 +1,3 @@
 hello i m resolving the conflict
 append some line to merge.txt
+ hello trying to merge conflict
