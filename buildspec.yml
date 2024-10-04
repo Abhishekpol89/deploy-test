@@ -22,6 +22,7 @@ phases:
     on-failure: ABORT
     commands:
       - tf_version=$TERRAFORM_VERSION
+      - sudo yum install -y wget unzip
       - wget https://releases.hashicorp.com/terraform/"$TERRAFORM_VERSION"/terraform_"$TERRAFORM_VERSION"_linux_amd64.zip
       - ls -ltr
       - unzip -o terraform_"$TERRAFORM_VERSION"_linux_amd64.zip
