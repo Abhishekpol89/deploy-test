@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'EnvironmentName', choices: ['dev', 'qa', 'test', 'prod'],
+        description: 'Enter the Environment to be used.')
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    try {
+                        echo 'Testing..'
+                        echo "${params.EnvironmentName} is value retrieved!"
+                        // Add your testing logic here
+                    } catch (Exception e) {
+                        error "Testing failed: ${e.message}"
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+                // Add your deployment logic here
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed.'
+            // Add notification logic here
+        }
+        always {
+            echo 'Cleaning up...'
+            // Add any clean-up steps here
+        }
+    }
+}
